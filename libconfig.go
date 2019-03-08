@@ -30,8 +30,6 @@ func ParseConfigFile(f string) (string,error){
 		strFinalVaule := strings.Replace(strVaule,"=",":",-1)
 		if len(strFinalVaule)>0{
 			configEle := strings.Split(strFinalVaule,":")
-			fmt.Println(strFinalVaule)
-			fmt.Println(len(configEle))
 			if len(configEle)>1 {
 				jsonEle := "\"" + strings.TrimSpace(configEle[0]) + "\"" +  ":" + configEle[1]
 				jsonStr += jsonEle
@@ -47,18 +45,6 @@ func ParseConfigFile(f string) (string,error){
 	jsonStr += "}"
 
 	finalReturnStr := strings.Replace(jsonStr,",}","}",-1)
-
-	fmt.Println("------------------------")
-	fmt.Println(finalReturnStr)
-	jsonMap := make(map[string]interface{})
-	err1 := json.Unmarshal([]byte(finalReturnStr),&jsonMap)
-	if err1 != nil {
-		fmt.Println("err1")
-		fmt.Println(err1.Error())
-	}
-	fmt.Println(jsonMap["general"])
-	fmt.Println("------------------------")
-	fmt.Println(jsonMap)
 	return finalReturnStr,nil
 }
 
