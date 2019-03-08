@@ -45,10 +45,13 @@ func ParseConfigFile(f string) (string,error){
 		}
 	}
 	jsonStr += "}"
+
+	finalReturnStr := strings.Replace(jsonStr,",}","}",-1)
+
 	fmt.Println("------------------------")
-	fmt.Println(jsonStr)
+	fmt.Println(finalReturnStr)
 	jsonMap := make(map[string]interface{})
-	err1 := json.Unmarshal([]byte(jsonStr),jsonMap)
+	err1 := json.Unmarshal([]byte(finalReturnStr),&jsonMap)
 	if err1 != nil {
 		fmt.Println("err1")
 		fmt.Println(err1.Error())
@@ -56,7 +59,7 @@ func ParseConfigFile(f string) (string,error){
 	fmt.Println(jsonMap["general"])
 	fmt.Println("------------------------")
 	fmt.Println(jsonMap)
-	return jsonStr,nil
+	return finalReturnStr,nil
 }
 
 func ParseJsonConfigFile(f string) (string,error){
